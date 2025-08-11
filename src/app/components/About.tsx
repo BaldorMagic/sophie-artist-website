@@ -1,10 +1,14 @@
+import Image from "next/image";
+
 export default function About() {
     return (
       <div className="max-w-4xl mx-auto px-4 py-20 flex flex-col md:flex-row items-center gap-8">
-        <img
-          src="/artist.jpg"
+        <Image
+          src='/paintings/Bitymes.jpg'
           alt="Artist portrait"
-          className="w-64 h-64 object-cover rounded-full shadow-md"
+          width={3024}
+          height={4032}
+          className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
         />
         <div>
           <h2 className="text-3xl font-serif mb-4">About the Artist</h2>
