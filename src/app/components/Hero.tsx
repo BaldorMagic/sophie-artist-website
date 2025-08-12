@@ -1,6 +1,6 @@
 export default function Hero() {
     return (
-      <section className="relative h-screen flex items-center justify-center bg-gray-100">
+      <section style={{ backgroundImage: "url('/paintings/Verray-sophie-elhomsi-oil-landscape-painting.jpg')"}} className="relative h-screen flex items-center justify-center bg-cover bg-center bg-gray-100">
         <div className="text-center">
           <h2 className="text-4xl md:text-6xl font-serif text-gray-800 mb-4">
             Landscapes in Blue & Earth
