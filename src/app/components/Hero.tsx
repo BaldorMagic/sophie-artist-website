@@ -1,4 +1,9 @@
+import { getHeroContent } from "../lib/api";
+import SafeMarkdown from "./SafeMarkdown";
+
 export default function Hero() {
+  const hero = await getHeroContent();
+  const bgStyle = hero?.background_url
     return (
       <section style={{ backgroundImage: "url('/paintings/Verray-sophie-elhomsi-oil-landscape-painting.jpg')"}} className="relative h-screen flex items-center justify-center bg-cover bg-center bg-gray-100">
         <div className="text-center">
