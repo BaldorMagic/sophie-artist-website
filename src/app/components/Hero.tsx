@@ -1,26 +1,24 @@
-import { getHeroContent } from "../lib/api";
-import SafeMarkdown from "./SafeMarkdown";
+import Image from 'next/image';
+import ReactMarkdown from 'react-markdown';
+import { getHeroSection } from '../lib/api';
 
-export default function Hero() {
-  const hero = await getHeroContent();
-  const bgStyle = hero?.background_url
-    return (
-      <section style={{ backgroundImage: "url('/paintings/Verray-sophie-elhomsi-oil-landscape-painting.jpg')"}} className="relative h-screen flex items-center justify-center bg-cover bg-center bg-gray-100">
-        <div className="text-center">
-          <h2 className="text-4xl md:text-6xl font-serif text-gray-800 mb-4">
-            Landscapes in Blue & Earth
-          </h2>
-          <p className="text-lg md:text-xl text-gray-600 mb-6">
-            Capturing the spirit of nature through color and texture
-          </p>
-          <a
-            href="#gallery"
-            className="px-6 py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-800"
-          >
-            View Gallery
-          </a>
-        </div>
-      </section>
-    );
-  }
-  
+export default async function Hero() {
+  const hero = await getHeroSection();
+  if (!hero) return null;
+
+  return (
+    <section>
+      {hero.background_url && hero.background_width && hero.background_height && (
+        <Image
+          src={hero.background_url}
+          alt={hero.title || ''}
+          width={hero.background_width}
+          height={hero.background_height}
+          priority
+        />
+      )}
+      <h1>{hero.title}</h1>
+      <ReactMarkdown>{hero.description || ''}</ReactMarkdown>
+    </section>
+  );
+}

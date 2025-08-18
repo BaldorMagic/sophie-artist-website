@@ -1,9 +1,7 @@
-// lib/api.ts
-import { readItems } from '@directus/sdk';
+import { readSingleton, readItems } from '@directus/sdk';
 import {
   directus,
   assetUrl,
-  type CMS,
   type DirectusFile,
   type HeroSection,
   type AboutSection,
@@ -18,9 +16,8 @@ export type HeroDTO = HeroSection & {
 };
 
 export async function getHeroSection(): Promise<HeroDTO | null> {
-  const rows = await directus.request(
-    readItems<CMS, 'hero_section'>('hero_section', {
-      limit: 1,
+  const hero = (await directus.request(
+    readSingleton('hero_section', {
       fields: [
         'id',
         'title',
@@ -29,24 +26,17 @@ export async function getHeroSection(): Promise<HeroDTO | null> {
         'background.width',
         'background.height',
       ],
-      sort: ['-date_updated'],
     })
-  );
+  )) as HeroSection | null;
 
-  const hero = rows?.[0];
   if (!hero) return null;
 
   const bg = hero.background as DirectusFile | string | null;
-  const background_width =
-    typeof bg === 'object' && bg ? bg.width ?? null : null;
-  const background_height =
-    typeof bg === 'object' && bg ? bg.height ?? null : null;
-
   return {
     ...hero,
     background_url: assetUrl(bg),
-    background_width,
-    background_height,
+    background_width: typeof bg === 'object' && bg ? bg.width ?? null : null,
+    background_height: typeof bg === 'object' && bg ? bg.height ?? null : null,
   };
 }
 
@@ -58,37 +48,24 @@ export type AboutDTO = AboutSection & {
 };
 
 export async function getAboutSection(): Promise<AboutDTO | null> {
-  const rows = await directus.request(
-    readItems<CMS, 'about_section'>('about_section', {
-      limit: 1,
-      fields: [
-        'id',
-        'description',
-        'image.id',
-        'image.width',
-        'image.height',
-      ],
-      sort: ['-date_updated'],
+  const about = (await directus.request(
+    readSingleton('about_section', {
+      fields: ['id', 'description', 'image.id', 'image.width', 'image.height'],
     })
-  );
+  )) as unknown as AboutSection | null;
 
-  const about = rows?.[0];
   if (!about) return null;
 
   const img = about.image as DirectusFile | string | null;
-  const image_width = typeof img === 'object' && img ? img.width ?? null : null;
-  const image_height =
-    typeof img === 'object' && img ? img.height ?? null : null;
-
   return {
     ...about,
     image_url: assetUrl(img),
-    image_width,
-    image_height,
+    image_width: typeof img === 'object' && img ? img.width ?? null : null,
+    image_height: typeof img === 'object' && img ? img.height ?? null : null,
   };
 }
 
-// ---------- PAINTINGS ----------
+// ---------- PAINTINGS (status filter ONLY here) ----------
 export type PaintingDTO = Painting & {
   image_url?: string;
   image_width?: number | null;
@@ -97,7 +74,7 @@ export type PaintingDTO = Painting & {
 
 export async function getPaintings(): Promise<PaintingDTO[]> {
   const rows = await directus.request(
-    readItems<CMS, 'paintings'>('paintings', {
+    readItems('paintings', {
       fields: [
         'id',
         'title',
@@ -108,23 +85,19 @@ export async function getPaintings(): Promise<PaintingDTO[]> {
         'image.width',
         'image.height',
       ],
-      filter: { status: { _eq: 'published' } }, // built-in status only here
+      filter: { status: { _eq: 'published' } },
       sort: ['-year'],
     })
   );
 
-  // rows is Painting[] (typed), build DTOs with URLs + dimensions
-  return (rows ?? []).map((p) => {
-    const img = p.image as DirectusFile | string | null;
-    const image_width = typeof img === 'object' && img ? img.width ?? null : null;
-    const image_height =
-      typeof img === 'object' && img ? img.height ?? null : null;
-
+  return (rows as any[]).map((p) => {
+    const paint = p as Painting;
+    const img = paint.image as DirectusFile | string | null;
     return {
-      ...p,
+      ...paint,
       image_url: assetUrl(img),
-      image_width,
-      image_height,
+      image_width: typeof img === 'object' && img ? img.width ?? null : null,
+      image_height: typeof img === 'object' && img ? img.height ?? null : null,
     };
   });
 }
