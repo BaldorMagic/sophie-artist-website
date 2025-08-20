@@ -81,9 +81,9 @@ export async function getPaintings(): Promise<PaintingDTO[]> {
         'year',
         'medium',
         'status',
-        'image.id',
-        'image.width',
-        'image.height',
+        'painting.id',
+        'painting.width',
+        'painting.height',
       ],
       filter: { status: { _eq: 'published' } },
       sort: ['-year'],
@@ -92,7 +92,7 @@ export async function getPaintings(): Promise<PaintingDTO[]> {
 
   return (rows as any[]).map((p) => {
     const paint = p as Painting;
-    const img = paint.image as DirectusFile | string | null;
+    const img = paint.painting as DirectusFile | string | null;
     return {
       ...paint,
       image_url: assetUrl(img),

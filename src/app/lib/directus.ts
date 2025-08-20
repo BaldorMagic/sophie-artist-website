@@ -24,7 +24,7 @@ export interface AboutSection {
 export interface Painting {
   id: string;
   title: string;
-  image: DirectusFile | string | null;  // File relation
+  painting: DirectusFile | string | null;  // File relation
   year?: number;
   medium?: string;
   status?: DirectusStatus;
@@ -42,9 +42,9 @@ export const directus = createDirectus<CMS>(
   .with(staticToken(process.env.DIRECTUS_ACCESS_TOKEN as string))
   .with(rest());
 
-  export function assetUrl(file?: DirectusFile | string | null) {
-    if (!file) return "";
-    const id = typeof file === "string" ? file : file.id;
-    return `/api/image/${id}`;
-  }
-  
+export function assetUrl(file?: DirectusFile | string | null) {
+  if (!file) return "";
+  const id = typeof file === "string" ? file : file.id;
+  return `/api/image/${id}`;
+}
+

@@ -11,15 +11,9 @@ export default function Page() {
       <Header />
       <main>
         <Hero />
-        <section id="gallery">
-          <Gallery />
-        </section>
-        <section id="about">
-          <About />
-        </section>
-        <section id="contact">
-          <Contact />
-        </section>
+        <Gallery />
+        <About />
+        <Contact />
       </main>
       <Footer />
     </>

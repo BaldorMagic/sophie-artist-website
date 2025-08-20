@@ -1,4 +1,3 @@
-// src/app/api/image/[id]/route.ts
 import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
@@ -28,10 +27,11 @@ export async function GET(
     return NextResponse.json({ error: "Invalid file id" }, { status: 400 });
   }
 
-  const upstream = await fetch(`${DIRECTUS_URL}/assets/${id}`, {
+  const upstream = await fetch(`${DIRECTUS_URL}/assets/${id}/download`, {
     headers: { Authorization: `Bearer ${TOKEN}` },
     cache: "no-store",
   });
+  
 
   if (!upstream.ok) {
     if (process.env.NODE_ENV !== "production") {
