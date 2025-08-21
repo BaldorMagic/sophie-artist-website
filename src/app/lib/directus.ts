@@ -37,7 +37,7 @@ export interface CMS {
 }
 
 export const directus = createDirectus<CMS>(
-  process.env.NEXT_PUBLIC_DIRECTUS_URL as string
+  process.env.DIRECTUS_URL as string
 )
   .with(staticToken(process.env.DIRECTUS_ACCESS_TOKEN as string))
   .with(rest());

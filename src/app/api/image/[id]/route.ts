@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export const runtime = "nodejs";
 export const revalidate = 60;
 
-const DIRECTUS_URL = process.env.NEXT_PUBLIC_DIRECTUS_URL!;
+const DIRECTUS_URL = process.env.DIRECTUS_URL!;
 const TOKEN = process.env.DIRECTUS_ACCESS_TOKEN!;
 
 // 1x1 transparent PNG
