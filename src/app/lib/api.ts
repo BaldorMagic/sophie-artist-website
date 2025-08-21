@@ -16,7 +16,7 @@ export type HeroDTO = HeroSection & {
 };
 
 export async function getHeroSection(): Promise<HeroDTO | null> {
-  const hero = (await directus.request(
+  const res = await directus.request(
     readSingleton('hero_section', {
       fields: [
         'id',
@@ -27,8 +27,9 @@ export async function getHeroSection(): Promise<HeroDTO | null> {
         'background.height',
       ],
     })
-  )) as HeroSection | null;
+  ) as unknown;
 
+  const hero = (res ?? null) as HeroSection | null;
   if (!hero) return null;
 
   const bg = hero.background as DirectusFile | string | null;
@@ -48,12 +49,13 @@ export type AboutDTO = AboutSection & {
 };
 
 export async function getAboutSection(): Promise<AboutDTO | null> {
-  const about = (await directus.request(
+  const res = await directus.request(
     readSingleton('about_section', {
       fields: ['id', 'description', 'image.id', 'image.width', 'image.height'],
     })
-  )) as unknown as AboutSection | null;
+  ) as unknown;
 
+  const about = (res ?? null) as AboutSection | null;
   if (!about) return null;
 
   const img = about.image as DirectusFile | string | null;
@@ -73,7 +75,7 @@ export type PaintingDTO = Painting & {
 };
 
 export async function getPaintings(): Promise<PaintingDTO[]> {
-  const rows = await directus.request(
+  const res = await directus.request(
     readItems('paintings', {
       fields: [
         'id',
@@ -81,20 +83,21 @@ export async function getPaintings(): Promise<PaintingDTO[]> {
         'year',
         'medium',
         'status',
-        'painting.id',
-        'painting.width',
-        'painting.height',
+        'image.id',      // ✅ correct relation key
+        'image.width',
+        'image.height',
       ],
       filter: { status: { _eq: 'published' } },
       sort: ['-year'],
     })
-  );
+  ) as unknown;
 
-  return (rows as any[]).map((p) => {
-    const paint = p as Painting;
-    const img = paint.painting as DirectusFile | string | null;
+  const rows: Painting[] = Array.isArray(res) ? (res as Painting[]) : [];
+
+  return rows.map((p) => {
+    const img = p.painting as DirectusFile | string | null;
     return {
-      ...paint,
+      ...p,
       image_url: assetUrl(img),
       image_width: typeof img === 'object' && img ? img.width ?? null : null,
       image_height: typeof img === 'object' && img ? img.height ?? null : null,
