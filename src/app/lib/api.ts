@@ -83,9 +83,9 @@ export async function getPaintings(): Promise<PaintingDTO[]> {
         'year',
         'medium',
         'status',
-        'image.id',      // ✅ correct relation key
-        'image.width',
-        'image.height',
+        'painting.id',      // ✅ correct relation key
+        'painting.width',
+        'painting.height',
       ],
       filter: { status: { _eq: 'published' } },
       sort: ['-year'],
