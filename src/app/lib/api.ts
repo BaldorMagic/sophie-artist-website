@@ -83,14 +83,15 @@ export async function getPaintings(): Promise<PaintingDTO[]> {
         'year',
         'medium',
         'status',
-        'painting.id',      // ✅ correct relation key
+        'painting.id',
         'painting.width',
         'painting.height',
       ],
       filter: { status: { _eq: 'published' } },
       sort: ['-year'],
     })
-  ) as unknown;
+  ) 
+  console.log(res);
 
   const rows: Painting[] = Array.isArray(res) ? (res as Painting[]) : [];
 

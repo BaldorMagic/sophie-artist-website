@@ -11,22 +11,22 @@ export interface DirectusFile {
 export interface HeroSection {
   id: number;
   title?: string;
-  description?: string;                 // Markdown
-  background?: DirectusFile | string | null; // File relation
+  description?: string;                
+  background?: DirectusFile | string | null;
 }
 
 export interface AboutSection {
   id: number;
-  image: DirectusFile | string | null;  // File relation
-  description?: string;                 // Markdown
+  image: DirectusFile | string | null;  
+  description?: string;                 
 }
 
 export interface Painting {
   id: string;
   title: string;
-  painting: DirectusFile | string | null;  // File relation
+  painting: DirectusFile | string | null;
   year?: number;
-  medium?: string;
+  medium?: string[];
   status?: DirectusStatus;
 }
 
