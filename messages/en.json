@@ -1,0 +1,18 @@
+  {
+    "Navigation": {
+      "Gallery": "Gallery",
+      "About": "About",
+      "Contact": "Contact"
+    },
+    "Hero": {
+      "CTA": "View Gallery"
+    },
+    "About": {
+      "Title": "About",
+      "Error": "No about content yet."
+    },
+    "Contact": {
+      "Title": "Contact",
+      "Send": "Send"
+    }
+  }

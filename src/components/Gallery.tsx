@@ -1,4 +1,4 @@
-import { getPaintings } from "../lib/api";
+import { getPaintings } from "../app/lib/api";
 import GalleryClient from "./GalleryClient";
 
 export default async function Gallery() {

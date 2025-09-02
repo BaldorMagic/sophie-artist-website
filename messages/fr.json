@@ -1,0 +1,18 @@
+  {
+    "Navigation": {
+      "Gallery": "Galerie",
+      "About": "À propos",
+      "Contact": "Contact"
+    },
+    "Hero": {
+      "CTA": "Voir la galerie"
+    },
+    "About": {
+      "Title": "À propos",
+      "Error": "Pas de contenu pour le moment."
+    },
+    "Contact": {
+      "Title": "Contact",
+      "Send": "Envoyer"
+    }
+  }

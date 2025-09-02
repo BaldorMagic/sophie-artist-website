@@ -1,9 +1,11 @@
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
-import { getAboutSection } from "../lib/api";
+import { getAboutSection } from "../app/lib/api";
+import { getTranslations } from "next-intl/server";
 
 export default async function About() {
   const about = await getAboutSection();
+  const t = await getTranslations('About')
   if (!about) return null;
 
   const hasImg =
@@ -26,13 +28,13 @@ export default async function About() {
           </div>
         )}
         <div>
-          <h2 className="text-3xl font-serif mb-4 text-[#3C5A72]">About</h2>
+          <h2 className="text-3xl font-serif mb-4 text-[#3C5A72]">{t('Title')}</h2>
           {about.description ? (
             <div className="prose prose-lg max-w-none">
               <ReactMarkdown>{about.description}</ReactMarkdown>
             </div>
           ) : (
-            <p className="text-gray-600">No about content yet.</p>
+            <p className="text-gray-600">{t('Error')}</p>
           )}
         </div>
       </div>

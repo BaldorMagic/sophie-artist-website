@@ -1,9 +1,11 @@
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
-import { getHeroSection } from "../lib/api";
+import { getHeroSection } from "../app/lib/api";
+import { getTranslations } from "next-intl/server";
 
 export default async function Hero() {
   const hero = await getHeroSection();
+  const t = await getTranslations('Hero');
   if (!hero) return null;
 
   const hasBg =
@@ -42,7 +44,7 @@ export default async function Hero() {
             href="#gallery"
             className="inline-block rounded-2xl bg-[#3C5A72] px-6 py-3 text-white hover:opacity-90"
           >
-            View Gallery
+            {t('CTA')}
           </a>
         </div>
       </div>

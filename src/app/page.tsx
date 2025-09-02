@@ -1,14 +1,15 @@
-import Header from "./components/Header";
-import Hero from "./components/Hero";
-import Gallery from "./components/Gallery";
-import About from "./components/About";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
+import Header from '../components/Header';
+import Hero from '../components/Hero';
+import Gallery from '../components/Gallery';
+import About from '../components/About';
+import Contact from '../components/Contact';
+import Footer from '../components/Footer';
+import Link from 'next/link';
 
 export default function Page() {
   return (
-    <>
-      <Header />
+    <div id="top">
+      <Header/>
       <main>
         <Hero />
         <Gallery />
@@ -16,6 +17,6 @@ export default function Page() {
         <Contact />
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 export default function Contact() {
+  const t = useTranslations('Contact');
   const [status, setStatus] = useState<string | null>(null);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -14,7 +16,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="mx-auto max-w-3xl px-4 py-20">
-      <h2 className="text-3xl font-serif mb-6 text-[#3C5A72]">Contact</h2>
+      <h2 className="text-3xl font-serif mb-6 text-[#3C5A72]">{t('Title')}</h2>
       <form onSubmit={onSubmit} className="space-y-4">
         <input
           type="text"
@@ -34,10 +36,10 @@ export default function Contact() {
           required
         />
         <button
-          className="rounded-xl bg-[#7B5E3B] text-white px-6 py-3 hover:opacity-95"
+          className="rounded-xl bg-[#7B5E3B] text-white px-6 py-3 hover:opacity-95 cursor-pointer"
           type="submit"
         >
-          Send
+          {t('Send')}
         </button>
       </form>
       {status && <p className="mt-4 text-sm text-green-700">{status}</p>}
