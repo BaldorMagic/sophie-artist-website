@@ -7,7 +7,7 @@ type Item = {
   id: string;
   title: string;
   year: number | null;
-  medium: string;
+  medium: string[];
   src: string;
   width: number;
   height: number;

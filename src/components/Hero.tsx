@@ -18,7 +18,7 @@ export default async function Hero() {
       {hasBg && (
         <Image
           src={hero.background_url!}
-          alt=""
+          alt="hero section background"
           aria-hidden
           width={hero.background_width!}
           height={hero.background_height!}

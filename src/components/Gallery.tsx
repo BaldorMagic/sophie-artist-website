@@ -11,10 +11,10 @@ export default async function Gallery() {
       title: p.title,
       year: p.year ?? null,
       medium: p.medium ?? "",
-      src: p.image_url!,      // /api/image/<id>
-      width: p.image_width!,  // real dims
+      src: p.image_url!,
+      width: p.image_width!,
       height: p.image_height!,
     }));
-
+    console.log(items);
   return <GalleryClient items={items} />;
 }

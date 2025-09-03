@@ -90,8 +90,7 @@ export async function getPaintings(): Promise<PaintingDTO[]> {
       filter: { status: { _eq: 'published' } },
       sort: ['-year'],
     })
-  ) 
-  console.log(res);
+  ) as unknown;
 
   const rows: Painting[] = Array.isArray(res) ? (res as Painting[]) : [];
 

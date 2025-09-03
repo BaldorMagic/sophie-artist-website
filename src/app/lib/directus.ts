@@ -17,13 +17,13 @@ export interface HeroSection {
 
 export interface AboutSection {
   id: number;
-  image: DirectusFile | string | null;  
-  description?: string;                 
+  image?: DirectusFile | string | null;  
+  description: string;                 
 }
 
 export interface Painting {
   id: string;
-  title: string;
+  title?: string;
   painting: DirectusFile | string | null;
   year?: number;
   medium?: string[];
@@ -33,7 +33,7 @@ export interface Painting {
 export interface CMS {
   hero_section: HeroSection;
   about_section: AboutSection;
-  paintings: Painting;
+  paintings: Painting[];
 }
 
 export const directus = createDirectus<CMS>(
