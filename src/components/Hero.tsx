@@ -6,6 +6,7 @@ import { getTranslations } from "next-intl/server";
 export default async function Hero() {
   const hero = await getHeroSection();
   const t = await getTranslations('Hero');
+  console.log(hero);
   if (!hero) return null;
 
   const hasBg =
